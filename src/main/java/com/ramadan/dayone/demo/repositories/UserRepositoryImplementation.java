@@ -21,7 +21,7 @@ public class UserRepositoryImplementation implements UserRepository{
     private static final String sql_count = "SELECT COUNT(*) FROM users WHERE email = ?";
     private static final String sql_find = "SELECT * FROM users WHERE user_id = ?";
     JdbcTemplate jdbcTemplate;
-
+    @Autowired
     UserRepositoryImplementation(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -50,12 +50,12 @@ public class UserRepositoryImplementation implements UserRepository{
 
     @Override
     public Integer getCountByEmail(String email) throws AuthException {
-        return jdbcTemplate.queryForObject(sql_count, Integer.class, email);
+        return jdbcTemplate.queryForObject(sql_count, new Object[]{email},Integer.class);
     }
 
     @Override
     public User findById(Integer id) throws AuthException {
-        return jdbcTemplate.queryForObject(sql_find, userRowMapper, id);
+        return jdbcTemplate.queryForObject(sql_find,  new Object[]{id}, userRowMapper);
     }
     private final RowMapper<User>  userRowMapper= ((rs, rowNum) -> new User(
             rs.getInt("user_id"),

@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class UserServiceImplementation implements UserService {
 
     private UserRepository userRepository;
+    @Autowired
     UserServiceImplementation(UserRepository userRepository) {
         this.userRepository = userRepository;
 
