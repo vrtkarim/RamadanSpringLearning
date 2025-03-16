@@ -1,7 +1,7 @@
-package com.ramadan.dayone.demo.service;
+package com.vrtkarim.usermanagement.service;
 
 
-import com.ramadan.dayone.demo.Constants;
+import com.vrtkarim.usermanagement.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -10,7 +10,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.spec.SecretKeySpec;
+import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,7 @@ public class JwtService {
     }
     private String buildToken(Map<String, Object> claims, UserDetails userDetails) {
         return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername())
-                .signWith(getSignInKey(), SignatureAlgorithm.ES256).compact();
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256).compact();
     }
     public boolean isTokenValid(String token,UserDetails user) {
         final String username = extractUsername(token);
@@ -45,7 +45,7 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token).getBody();
     }
-    private Key getSignInKey(){
+    private SecretKey getSignInKey(){
         byte[] keyBytes = Decoders.BASE64.decode(
                 Constants.api_key
         );

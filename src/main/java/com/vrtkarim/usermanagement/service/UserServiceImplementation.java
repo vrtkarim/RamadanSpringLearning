@@ -1,9 +1,9 @@
-package com.ramadan.dayone.demo.service;
+package com.vrtkarim.usermanagement.service;
 
-import com.ramadan.dayone.demo.entity.User;
-import com.ramadan.dayone.demo.exception.UserNotFoundException;
-import com.ramadan.dayone.demo.exception.WrongPasswordException;
-import com.ramadan.dayone.demo.repository.UserRepository;
+import com.vrtkarim.usermanagement.entity.User;
+import com.vrtkarim.usermanagement.exception.UserNotFoundException;
+import com.vrtkarim.usermanagement.exception.WrongPasswordException;
+import com.vrtkarim.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.ramadan.dayone.demo.exception;
+package com.vrtkarim.usermanagement.exception;
 
 
 import org.springframework.http.HttpStatus;

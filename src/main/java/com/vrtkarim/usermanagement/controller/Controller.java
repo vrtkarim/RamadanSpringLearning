@@ -1,27 +1,24 @@
-package com.ramadan.dayone.demo.controller;
+package com.vrtkarim.usermanagement.controller;
 
-import com.ramadan.dayone.demo.entity.User;
-import com.ramadan.dayone.demo.service.UserService;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.vrtkarim.usermanagement.entity.User;
+import com.vrtkarim.usermanagement.repository.UserRepository;
+import com.vrtkarim.usermanagement.service.JwtService;
+import com.vrtkarim.usermanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
+import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
 public class Controller {
     private final UserService userService;
+    private final JwtService jwtService;
     @Autowired
-    public Controller(UserService userService) {
+    public Controller(UserService userService, JwtService jwtService) {
         this.userService = userService;
+        this.jwtService = jwtService;
     }
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody Map<String, Object> map) {
@@ -31,7 +28,8 @@ public class Controller {
         user.setEmail(map.get("email").toString());
         userService.createUser(user);
 
-        return new ResponseEntity<>("User created successfully",HttpStatus.CREATED);
+
+        return new ResponseEntity<>(jwtService.generateToken(user),HttpStatus.CREATED);
 
     }
 
@@ -41,6 +39,10 @@ public class Controller {
         String password = map.get("password");
         User user = userService.login(email, password);
         return new ResponseEntity<>(user.getName()+" logged in successfully",HttpStatus.OK);
+    }
+    @GetMapping("/hi")
+    public ResponseEntity<String> hi() {
+        return new ResponseEntity<>("Hi",HttpStatus.I_AM_A_TEAPOT);
     }
 
 

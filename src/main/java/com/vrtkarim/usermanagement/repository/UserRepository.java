@@ -1,6 +1,6 @@
-package com.ramadan.dayone.demo.repository;
+package com.vrtkarim.usermanagement.repository;
 
-import com.ramadan.dayone.demo.entity.User;
+import com.vrtkarim.usermanagement.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

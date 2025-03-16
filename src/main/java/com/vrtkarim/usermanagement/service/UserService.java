@@ -1,6 +1,6 @@
-package com.ramadan.dayone.demo.service;
+package com.vrtkarim.usermanagement.service;
 
-import com.ramadan.dayone.demo.entity.User;
+import com.vrtkarim.usermanagement.entity.User;
 
 public interface UserService {
     User createUser(User user) ;

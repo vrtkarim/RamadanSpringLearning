@@ -1,4 +1,4 @@
-package com.ramadan.dayone.demo.entity;
+package com.vrtkarim.usermanagement.entity;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;

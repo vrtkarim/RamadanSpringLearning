@@ -1,6 +1,6 @@
-package com.ramadan.dayone.demo.config;
+package com.vrtkarim.usermanagement.config;
 
-import com.ramadan.dayone.demo.service.JwtService;
+import com.vrtkarim.usermanagement.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,7 +29,14 @@ public class JwtFilter extends OncePerRequestFilter  {
     }
 
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         final String authHeader = request.getHeader("Authorization");
+
+        if (authHeader==null){
+            chain.doFilter(request, response);
+            return;
+        }
+
         if (authHeader == null && !authHeader.startsWith("Bearer ")) {
 
             chain.doFilter(request, response);
