@@ -1,7 +1,5 @@
 package com.ramadan.dayone.demo.service;
 
-import com.ramadan.dayone.demo.dto.UserDto;
-import com.ramadan.dayone.demo.dto.UserMapper;
 import com.ramadan.dayone.demo.entity.User;
 import com.ramadan.dayone.demo.exception.UserNotFoundException;
 import com.ramadan.dayone.demo.exception.WrongPasswordException;
@@ -18,16 +16,16 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public UserDto createUser(UserDto userDto) {
-        User user = UserMapper.mapToUser(userDto);
+    public User createUser(User user) {
+
         User savedUser = userRepository.save(user);
-        return UserMapper.mapToUserDto(savedUser);
+        return savedUser;
     }
-    public UserDto login(String email, String password) {
+    public User login(String email, String password) {
         try{
             User user = userRepository.findByEmail(email);
             if(user.getPassword().equals(password)){
-                return UserMapper.mapToUserDto(user);
+                return user;
             }else{
                 throw new WrongPasswordException("Wrong password");
             }

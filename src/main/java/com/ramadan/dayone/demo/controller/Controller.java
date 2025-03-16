@@ -1,7 +1,5 @@
 package com.ramadan.dayone.demo.controller;
 
-import com.ramadan.dayone.demo.Constants;
-import com.ramadan.dayone.demo.dto.UserDto;
 import com.ramadan.dayone.demo.entity.User;
 import com.ramadan.dayone.demo.service.UserService;
 import io.jsonwebtoken.Jwts;
@@ -26,10 +24,14 @@ public class Controller {
         this.userService = userService;
     }
     @PostMapping("/create")
-    public ResponseEntity<Map<String, String>> create(@RequestBody UserDto user) {
-        UserDto saved =userService.createUser(user);
+    public ResponseEntity<String> create(@RequestBody Map<String, Object> map) {
+        User user = new User();
+        user.setName(map.get("name").toString());
+        user.setPassword(map.get("password").toString());
+        user.setEmail(map.get("email").toString());
+        userService.createUser(user);
 
-        return new ResponseEntity<>(generatJWTToken(saved),HttpStatus.CREATED);
+        return new ResponseEntity<>("User created successfully",HttpStatus.CREATED);
 
     }
 
@@ -37,14 +39,8 @@ public class Controller {
     public ResponseEntity<String> login(@RequestBody Map<String, String> map) {
         String email = map.get("email");
         String password = map.get("password");
-        UserDto user = userService.login(email, password);
+        User user = userService.login(email, password);
         return new ResponseEntity<>(user.getName()+" logged in successfully",HttpStatus.OK);
     }
-    private Map<String, String> generatJWTToken(UserDto user) {
-        Map<String, String> map = new HashMap<>();
-        String token = Jwts.builder().signWith(SignatureAlgorithm.HS256, Constants.api_key).claim("email", user.getEmail()).compact();
-        map.put("token", token);
 
-        return map;
-    }
 }

@@ -1,8 +1,8 @@
 package com.ramadan.dayone.demo.service;
 
-import com.ramadan.dayone.demo.dto.UserDto;
+import com.ramadan.dayone.demo.entity.User;
 
 public interface UserService {
-    UserDto createUser(UserDto userDto) ;
-    UserDto login(String email, String password);
+    User createUser(User user) ;
+    User login(String email, String password);
 }
