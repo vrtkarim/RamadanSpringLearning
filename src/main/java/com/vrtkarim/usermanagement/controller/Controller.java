@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/users")
@@ -20,7 +23,7 @@ public class Controller {
         this.userService = userService;
         this.jwtService = jwtService;
     }
-    @PostMapping("/create")
+    @PostMapping("/signup")
     public ResponseEntity<String> create(@RequestBody Map<String, Object> map) {
         User user = new User();
         user.setName(map.get("name").toString());
@@ -42,6 +45,7 @@ public class Controller {
     }
     @GetMapping("/hi")
     public ResponseEntity<String> hi() {
+        System.out.println("it is accessed");
         return new ResponseEntity<>("Hi",HttpStatus.I_AM_A_TEAPOT);
     }
 

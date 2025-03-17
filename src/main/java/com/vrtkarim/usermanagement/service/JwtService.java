@@ -21,6 +21,11 @@ public class JwtService {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+
+
+
+
+
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims  = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -45,6 +50,8 @@ public class JwtService {
                 .build()
                 .parseClaimsJws(token).getBody();
     }
+
+
     private SecretKey getSignInKey(){
         byte[] keyBytes = Decoders.BASE64.decode(
                 Constants.api_key

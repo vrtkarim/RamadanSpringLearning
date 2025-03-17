@@ -5,7 +5,11 @@ import com.vrtkarim.usermanagement.exception.UserNotFoundException;
 import com.vrtkarim.usermanagement.exception.WrongPasswordException;
 import com.vrtkarim.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -17,7 +21,6 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User createUser(User user) {
-
         User savedUser = userRepository.save(user);
         return savedUser;
     }
@@ -34,5 +37,17 @@ public class UserServiceImplementation implements UserService {
         }
 
 
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        System.out.println(userRepository.getUserByEmail(email));
+        return Optional.of(userRepository.getUserByEmail(email));
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return null;
     }
 }
